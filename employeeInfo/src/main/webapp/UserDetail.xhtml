@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+<h:head>
+	<title><ui:insert name="title">Default title</ui:insert></title>
+</h:head>
+
+<body>
+	<a4j:status onstart="#{rich:component('statPane')}.show()"
+		onstop="#{rich:component('statPane')}.hide()" />
+	UserDetail:
+	<h:form id="form">
+
+		<rich:dataTable value="#{employeeDetails.users}" var="employee"
+			id="table" rows="15">
+			<rich:column>
+				<f:facet name="header">UserID</f:facet>
+				<h:outputText value="#{employee.userID}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">FirstName</f:facet>
+				<h:outputText value="#{employee.firstname}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">lastName</f:facet>
+				<h:outputText value="#{employee.lastName}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{employee.email}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Age</f:facet>
+				<h:outputText value="#{employee.age}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Sex</f:facet>
+				<h:outputText value="#{employee.sex}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">StateName</f:facet>
+				<h:outputText value="#{employee.stateName}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">DistrictName</f:facet>
+				<h:outputText value="#{employee.districtName}" />
+			</rich:column>
+			<rich:column>
+				<a4j:commandButton execute="@this" render="@none" value="delete"
+					oncomplete="#{rich:component('confirmPane')}.show()">
+					<a4j:param value="#{employee.userID}"
+						assignTo="#{employeeDetails.deleteID}" />
+				</a4j:commandButton>
+
+			</rich:column>
+			<f:facet name="footer">
+				<rich:dataScroller page="10" fastStep="3" />
+			</f:facet>
+		</rich:dataTable>
+		<a4j:jsFunction name="remove" action="#{employeeDetails.remove()}"
+			render="table" execute="@this"
+			oncomplete="#{rich:component('confirmPane')}.hide();" />
+
+		<rich:popupPanel id="statPane" autosized="true">
+            Please wait...
+        </rich:popupPanel>
+
+		<rich:popupPanel id="confirmPane" autosized="true">
+            Are you sure you want to delete the row?
+            <a4j:commandButton value="Cancel"
+				onclick="#{rich:component('confirmPane')}.hide(); return false;" />
+			<a4j:commandButton value="Delete" onclick="remove(); return false;" />
+		</rich:popupPanel>
+
+
+	</h:form>
+</body>
+
+</html>
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title><ui:insert name="title">Default title</ui:insert></title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<hr />
+		<table>
+			<tr>
+				<td>UserID:</td>
+				<td><h:inputText size="10" value="#{userDetail.userID}"
+						required="true" /></td>
+			</tr>
+			<tr>
+				<td>FirstName:</td>
+				<td><h:inputText size="20" value="#{userDetail.firstname}"
+						required="true" /></td>
+			</tr>
+			<tr>
+				<td>LastName:</td>
+				<td><h:inputText size="5" value="#{userDetail.lastName}"
+						required="true" /></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><h:inputText size="5" value="#{userDetail.password}"
+						required="true" /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><h:inputText size="5" value="#{userDetail.email}"
+						required="true" /></td>
+			</tr>
+			<tr>
+				<td>Age:</td>
+				<td><h:inputText size="5" value="#{userDetail.age}"
+						required="true" /></td>
+			</tr>
+			<tr>
+				<td>Sex:</td>
+				<td><h:selectOneRadio value="#{userDetail.sex}">
+						<f:selectItem itemValue="Male" itemLabel="Male" />
+						<f:selectItem itemValue="Female" itemLabel="FeMale" />
+					</h:selectOneRadio></td>
+			</tr>
+			<tr>
+				<td>Select State:</td>
+				<td><h:selectOneMenu value="#{userDetail.stateID}"
+						valueChangeListener="#{employeeDetails.valueChanged}">
+						<f:selectItem itemLabel="---select state----"></f:selectItem>
+						<f:selectItems value="#{employeeDetails.states.entrySet()}" var="c" itemValue="#{c.key}" itemLabel="#{c.value}"/>
+						<f:ajax event="valueChange" render="second" />
+					</h:selectOneMenu></td>
+			</tr>
+			<tr>
+				<td>Select District:</td>
+				<td><h:selectOneMenu id="second" value="#{userDetail.districtID}">
+						<f:selectItems value="#{employeeDetails.districtList.entrySet()}" var="c" itemValue="#{c.key}" itemLabel="#{c.value}"/>
+					</h:selectOneMenu></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+				<h:commandButton value="Add Employee"
+						action="#{employeeDetails.AddEmployee()}" /></td>
+						
+			</tr>
+		</table>
+
+	</h:form>
+
+</h:body>
+
+</html>
+
+
+
+
+
